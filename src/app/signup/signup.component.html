@@ -1,0 +1,64 @@
+<div class="signup-container">
+  <mat-card class="signup-card">
+    <mat-card-title>Sign Up</mat-card-title>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="fullName" required>
+        <mat-error *ngIf="signupForm.get('fullName')?.hasError('required')">
+          Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('required')">
+          Email is required.
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('email')?.hasError('email')">
+          Invalid email format.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" required>
+        <mat-error *ngIf="signupForm.get('phoneNumber')?.hasError('required')">
+          Phone Number is required.
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('phoneNumber')?.hasError('pattern')">
+          Invalid Phone number format.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required>
+        <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
+          Password is required.
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('phoneNumber')?.hasError('minLength')">
+          Password must contains 8 characters
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('phoneNumber')?.hasError('weakPassword')">
+          Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 special character, and 1 number.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="confirmPassword" required>
+        <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('required')">
+          Confirm Password is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('confirmPassword')?.hasError('mismatch')">
+          Passwords do not match.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+    </form>
+  </mat-card>
+</div>
+

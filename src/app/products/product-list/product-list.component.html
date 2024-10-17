@@ -1,0 +1,74 @@
+<div class="product-list-container">
+  <h3>Product List</h3>
+  <button *ngIf="!isAdmin" mat-raised-button color="primary" (click)="openCreateProductDialog()">
+    Create New Product
+  </button>
+  <form [formGroup]="productFilterForm" (ngSubmit)="onFilter()">
+    <mat-form-field>
+      <mat-label>Keyword</mat-label>
+      <input matInput formControlName="keyword" name="keyword">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="startDate" formControlName="startDate" name="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>End Date</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="endDate" name="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Filter</button>
+  </form>
+  <table mat-table [dataSource]="products">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let product"> {{product.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="imageUrl">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let product"> <img [src] = "product.imageUrl" alt="{{product.name}}" width="50" height="50"/> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef> Created At </th>
+      <td mat-cell *matCellDef="let element"> {{ element.createdAt | date:'MM/dd/yyyy hh:mm a' }}</td>
+    </ng-container>
+
+    <ng-container *ngIf="isAdmin" matColumnDef="createdBy">
+      <th mat-header-cell *matHeaderCellDef> Created By </th>
+      <td mat-cell *matCellDef="let element"> {{ element.createdBy.fullName}}</td>
+    </ng-container>
+
+    <ng-container *ngIf="!isAdmin" matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let product">
+        <button mat-icon-button *ngIf="!isAdmin" (click)="openEditProductDialog(product)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" *ngIf="!isAdmin" (click)="openConfirmDialog(product._id)"><mat-icon>delete</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator
+    [length]="totalRecords"
+    [pageSize]="limit"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+</div>

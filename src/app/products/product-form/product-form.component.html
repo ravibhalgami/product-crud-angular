@@ -1,0 +1,43 @@
+<div class="product-form-container">
+<mat-card class="product-form-card">
+    <h2>{{ isEditMode ? 'Edit' : 'Create' }} Product</h2>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="name" placeholder="Product Name">
+        <mat-error *ngIf="productForm.get('name')?.hasError('required')">
+          Product Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Product Description"></textarea>
+        <mat-error *ngIf="productForm.get('description')?.hasError('required')">
+          Product Description is required.
+        </mat-error>
+        <mat-error *ngIf="productForm.get('description')?.hasError('minlength')">
+          Product Description must be at least 10 characters long.
+        </mat-error>
+        <mat-error *ngIf="productForm.get('description')?.hasError('maxlength')">
+          Product Description cannot be more than 200 characters.
+        </mat-error>
+      </mat-form-field>
+      <div *ngIf="isEditMode && productForm.get('imageUrl')" class="image-preview">
+        <img [src]="productForm.get('imageUrl')?.value" alt="Current Image" width="150" />
+        <p>Current Image</p>
+      </div>
+      <mat-form-field appearance="fill" class="custom-file-input-field">
+        <mat-label>Upload File</mat-label>
+        <input matInput formControlName="fileName" placeholder="Choose file" readonly>
+        <mat-error *ngIf="productForm.get('fileName')?.hasError('required')">
+          Image is required
+        </mat-error>
+        <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Browse</button>
+        <input type="file" #fileInput (change)="onFileSelect($event)" hidden>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+  </mat-card>
+</div>

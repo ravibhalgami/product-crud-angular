@@ -1,0 +1,24 @@
+<header class="header">
+    <div class="logo">
+      <h1>My App</h1>
+    </div>
+    <nav class="nav-links">
+        <ul>
+            <li *ngIf="!isLoggedIn">
+                <a routerLink="/login">Login</a>
+            </li>
+            <li *ngIf="!isLoggedIn">
+                <a routerLink="/signup">Sign Up</a>
+            </li>
+            <li *ngIf="isLoggedIn && isAdmin">
+                <a routerLink="/users">User</a>
+            </li>
+            <li *ngIf="isLoggedIn">
+                <a routerLink="/products">Product</a>
+            </li>
+            <li *ngIf="isLoggedIn">
+                <a (click)="logout()" href="javascript:void(0)">Logout</a>
+            </li>
+        </ul>
+    </nav>
+  </header>

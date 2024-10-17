@@ -1,27 +1,69 @@
-# ProductCrudAngular
+# Angular Project: User & Admin Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.10.
+## 📋 Overview
 
-## Development server
+This project is a **frontend** dashboard system built with **Angular** for both users and admins. It includes features like signup, login, product CRUD (Create, Read, Update, Delete) operations, and a dedicated admin interface for user management. The frontend communicates with a **NestJS** backend API and uses **Firebase** for image storage.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Features
 
-## Code scaffolding
+- **User Signup & Login**
+- **CRUD Operations** for Products
+- **Admin Dashboard** for User Management and Products listing
+- **Firebase Integration** for Media Storage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🔧 Requirements
 
-## Build
+Ensure you have the following installed on your system:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Node.js**: `^v18.19.1`
+- **Angular CLI**: `^v17.3.10`
+- **Firebase Account**: For image storage
+- **NestJS API**: Backend service (available in a separate repository)
 
-## Running unit tests
+## ⚙️ Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Follow these steps to set up and run the project:
 
-## Running end-to-end tests
+1. **Clone the repository**:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   ```bash
+   git clone https://github.com/ravibhalgami/product-crud-angular.git
 
-## Further help
+   cd product-crud-angular
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+2. **Install dependencies**:
+
+```bash
+npm install
+Start the development server:
+```
+
+3. **Start the development server**:
+
+```bash
+ng serve
+The app will be accessible at http://localhost:4200.
+```
+
+## 🔨 Configuration
+
+You need to set up the NestJS API endpoint in the environment configuration file located at src/environments/environment.development.ts.
+
+### Example Configuration
+
+```bash
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api/'
+};
+```
+
+Ensure the apiUrl points to the correct backend server.
+
+Note: The backend NestJS API must be running separately. Please refer to the respective backend repository for setup instructions.
+
+## 💡 Additional Notes
+
+The project requires a working Firebase account for media storage. Ensure that Firebase is properly configured.
+The admin interface is restricted to authorized users only.
